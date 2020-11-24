@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear", "Nuclear\Nuclear.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Dtos", "Nuclear.Dtos\Nuclear.Dtos.csproj", "{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.EntityFramework", "Nuclear.EntityFramework\Nuclear.EntityFramework.csproj", "{90781883-BD16-4C13-A4AB-B74C3AB73B7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90781883-BD16-4C13-A4AB-B74C3AB73B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90781883-BD16-4C13-A4AB-B74C3AB73B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90781883-BD16-4C13-A4AB-B74C3AB73B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90781883-BD16-4C13-A4AB-B74C3AB73B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
