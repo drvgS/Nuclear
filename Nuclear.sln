@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear", "Nuclear\Nuclear.csproj", "{A54C5D4F-BB16-464D-A6A5-95D68CFB3F44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclear.Dtos", "Nuclear.Dtos\Nuclear.Dtos.csproj", "{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A54C5D4F-BB16-464D-A6A5-95D68CFB3F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54C5D4F-BB16-464D-A6A5-95D68CFB3F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54C5D4F-BB16-464D-A6A5-95D68CFB3F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54C5D4F-BB16-464D-A6A5-95D68CFB3F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4834A1D7-3DB9-459B-927D-6DF2C0D39B49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5798F5F8-C948-4197-81B8-3264929D0D8E}
+	EndGlobalSection
+EndGlobal
