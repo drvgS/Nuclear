@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Nuclear.EntityFramework;
+using Nuclear.Services;
 
 namespace Nuclear
 {
@@ -26,6 +29,11 @@ namespace Nuclear
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<NuclearContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("Database")));
+
+            services.AddScoped<AccountService>();
+            services.AddScoped<TopicService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

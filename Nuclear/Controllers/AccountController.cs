@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Nuclear.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,13 @@ namespace Nuclear.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly AccountService _accountService;
+
+        public AccountController(AccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
         // GET: api/<AccountController>
         [HttpGet]
         public IEnumerable<string> Get()
