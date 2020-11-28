@@ -27,6 +27,7 @@ namespace Nuclear.Controllers
         /// <summary>
         /// Gets a topic by id
         /// </summary>
+        /// <param name="id">The id of the topic</param>
         /// <returns>The requested topic object</returns>
         /// <response code="200">Returns the requested topic</response>
         /// <response code="404">If the topic does not exist</response>
