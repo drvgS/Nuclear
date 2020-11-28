@@ -40,13 +40,13 @@ namespace Nuclear.Services
             var topic = new Topic()
             {
                 Title = createTopicDto.Title,
-                Category = _context.Categories.FirstOrDefault(c => c.Id == createTopicDto.CategoryId),
+                Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == createTopicDto.CategoryId),
                 Posts = new List<Post>()
                 {
                     new Post()
                     {
                         Body = createTopicDto.Body,
-                        Owner = _context.Accounts.FirstOrDefault(a => a.AccountName == "RektInator")
+                        Owner = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountName == "RektInator")
                     }
                 }
             };
@@ -61,15 +61,32 @@ namespace Nuclear.Services
         {
             var post = new Post()
             {
-                Topic = _context.Topics.FirstOrDefault(t => t.Id == topicId),
+                Topic = await _context.Topics.FirstOrDefaultAsync(t => t.Id == topicId),
                 Body = createPostDto.Body,
-                Owner = _context.Accounts.FirstOrDefault(a => a.AccountName == "RektInator")
+                Owner = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountName == "RektInator")
             };
 
             await _context.Posts.AddAsync(post);
             await _context.SaveChangesAsync();
 
             return _mapper.Map<Post, PostDto>(post);
+        }
+
+        public async Task<bool> DeleteTopicAsync(long id)
+        {
+            var topic = await _context.Topics
+                .Include(t => t.Posts)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (topic == null)
+            {
+                return false;
+            }
+
+            _context.Remove(topic);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
