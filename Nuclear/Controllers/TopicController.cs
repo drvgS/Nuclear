@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Nuclear.Dtos.Post;
 using Nuclear.Dtos.Topic;
 using Nuclear.Services;
 
@@ -23,23 +24,50 @@ namespace Nuclear.Controllers
 
         // GET api/<TopicController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var topic = _topicService.GetTopic(id);
+
+            if (topic == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(topic);
         }
 
         // POST api/<TopicController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateTopicDto createTopicDto)
+        public async Task<IActionResult> PostAsync([FromBody] CreateTopicDto createTopicDto)
         {
-            await _topicService.CreateTopicAsync(createTopicDto);
-            return Ok();
+            var topic = await _topicService.CreateTopicAsync(createTopicDto);
+
+            if (topic == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(topic);
         }
 
         // PUT api/<TopicController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+        }
+
+        // POST api/<TopicController>/5/reply
+        [HttpPost("{id}/reply")]
+        public async Task<IActionResult> PostReplyAsync(int id, [FromBody] CreatePostDto createPostDto)
+        {
+            var post = await _topicService.CreateReplyAsync(id, createPostDto);
+
+            if (post == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(post);
         }
 
         // DELETE api/<TopicController>/5

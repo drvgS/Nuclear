@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using Microsoft.EntityFrameworkCore;
 using Nuclear.EntityFramework;
 using Nuclear.Services;
@@ -32,8 +34,21 @@ namespace Nuclear
             services.AddDbContext<NuclearContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Database")));
 
+            services.AddSingleton<IMapper>(provider =>
+            {
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile(new DtoMappingProfile());
+                    cfg.AddCollectionMappers();
+                });
+                config.AssertConfigurationIsValid();
+
+                return config.CreateMapper();
+            });
+
             services.AddScoped<AccountService>();
             services.AddScoped<TopicService>();
+            services.AddScoped<CategoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
