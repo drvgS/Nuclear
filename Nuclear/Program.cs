@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Nuclear.EntityFramework;
 
 namespace Nuclear
 {
@@ -13,6 +15,11 @@ namespace Nuclear
     {
         public static void Main(string[] args)
         {
+            // migrate database
+            var context = new DesignTimeDbContextFactory().GetDbContext();
+            context.Database.Migrate();
+
+            // start application
             CreateHostBuilder(args).Build().Run();
         }
 
