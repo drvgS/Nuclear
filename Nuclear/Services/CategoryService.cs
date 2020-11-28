@@ -22,23 +22,23 @@ namespace Nuclear.Services
             _mapper = mapper;
         }
 
-        public List<CategoryDto> GetAll()
+        public async Task<List<CategoryDto>> GetAllAsync()
         {
-            var categories = _context.Categories.Where(c => c.IsPublic).ToList();
+            var categories = await _context.Categories.Where(c => c.IsPublic).ToListAsync();
             return _mapper.Map<List<Category>, List<CategoryDto>>(categories);
         }
 
-        public CategoryDto GetCategory(long id)
+        public async Task<CategoryDto> GetCategoryAsync(long id)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
             return _mapper.Map<Category, CategoryDto>(category);
         }
 
-        public List<TopicDto> GetTopicsForCategory(long id)
+        public async Task<List<TopicDto>> GetTopicsForCategoryAsync(long id)
         {
-            var category = _context.Categories
+            var category = await _context.Categories
                 .Include(c => c.Topics)
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {

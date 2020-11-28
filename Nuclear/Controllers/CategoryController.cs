@@ -29,9 +29,9 @@ namespace Nuclear.Controllers
         /// <response code="200">Returns the requested categories</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            var categories = _categoryService.GetAll();
+            var categories = await _categoryService.GetAllAsync();
             return Ok(categories);
         }
 
@@ -46,9 +46,9 @@ namespace Nuclear.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var category = _categoryService.GetCategory(id);
+            var category = await _categoryService.GetCategoryAsync(id);
 
             if (category == null)
             {
@@ -69,9 +69,9 @@ namespace Nuclear.Controllers
         [HttpGet("{id}/topics")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetTopics(int id)
+        public async Task<IActionResult> GetTopicsAsync(int id)
         {
-            var category = _categoryService.GetTopicsForCategory(id);
+            var category = await _categoryService.GetTopicsForCategoryAsync(id);
 
             if (category == null)
             {
