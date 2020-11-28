@@ -5,11 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Nuclear.Dtos.Post;
 using Nuclear.Dtos.Topic;
 using Nuclear.EntityFramework;
 using Nuclear.EntityFramework.Models;
+using Nuclear.SignalR;
 
 namespace Nuclear.Services
 {
@@ -17,11 +19,15 @@ namespace Nuclear.Services
     {
         private readonly NuclearContext _context;
         private readonly IMapper _mapper;
+        private readonly IHubContext<ClientHub, IClientHubEvents> _clientHub;
 
-        public TopicService(NuclearContext context, IMapper mapper)
+        public TopicService(NuclearContext context, 
+            IMapper mapper,
+            IHubContext<ClientHub, IClientHubEvents> clientHub)
         {
             _context = context;
             _mapper = mapper;
+            _clientHub = clientHub;
         }
 
         public TopicDto GetTopic(long id)
@@ -54,7 +60,11 @@ namespace Nuclear.Services
             await _context.Topics.AddAsync(topic);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<Topic, TopicDto>(topic);
+            var topicDto = _mapper.Map<Topic, TopicDto>(topic);
+
+            await _clientHub.Clients.All.TopicCreatedEvent(topicDto);
+
+            return topicDto;
         }
 
         public async Task<PostDto> CreateReplyAsync(long topicId, CreatePostDto createPostDto)
@@ -69,7 +79,11 @@ namespace Nuclear.Services
             await _context.Posts.AddAsync(post);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<Post, PostDto>(post);
+            var postDto = _mapper.Map<Post, PostDto>(post);
+
+            await _clientHub.Clients.All.ReplyCreatedEvent(postDto);
+
+            return postDto;
         }
 
         public async Task<bool> DeleteTopicAsync(long id)
@@ -85,6 +99,8 @@ namespace Nuclear.Services
 
             _context.Remove(topic);
             await _context.SaveChangesAsync();
+
+            await _clientHub.Clients.All.TopicDeletedEvent(id);
 
             return true;
         }

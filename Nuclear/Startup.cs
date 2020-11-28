@@ -18,6 +18,7 @@ using AutoMapper.EquivalencyExpression;
 using Microsoft.EntityFrameworkCore;
 using Nuclear.EntityFramework;
 using Nuclear.Services;
+using Nuclear.SignalR;
 
 namespace Nuclear
 {
@@ -52,7 +53,11 @@ namespace Nuclear
             services.AddScoped<CategoryService>();
             services.AddScoped<TopicService>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Nuclear", Version = "v1" });
@@ -61,6 +66,8 @@ namespace Nuclear
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +87,7 @@ namespace Nuclear
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ClientHub>("/signalr");
             });
         }
     }

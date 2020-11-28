@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Nuclear.Dtos.Category;
 using Nuclear.Dtos.Topic;
 using Nuclear.EntityFramework;
 using Nuclear.EntityFramework.Models;
+using Nuclear.SignalR;
 
 namespace Nuclear.Services
 {
@@ -15,11 +17,15 @@ namespace Nuclear.Services
     {
         private readonly NuclearContext _context;
         private readonly IMapper _mapper;
+        private readonly IHubContext<ClientHub, IClientHubEvents> _clientHub;
 
-        public CategoryService(NuclearContext context, IMapper mapper)
+        public CategoryService(NuclearContext context, 
+            IMapper mapper,
+            IHubContext<ClientHub, IClientHubEvents> clientHub)
         {
             _context = context;
             _mapper = mapper;
+            _clientHub = clientHub;
         }
 
         public async Task<List<CategoryDto>> GetAllAsync()
