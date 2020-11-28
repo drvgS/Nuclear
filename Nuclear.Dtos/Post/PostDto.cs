@@ -9,6 +9,7 @@ namespace Nuclear.Dtos.Post
     public class PostDto
     {
         public long Id { get; set; }
+        public long TopicId { get; set; }
         public string Body { get; set; }
         public AnonymousAccountDto Owner { get; set; }
     }

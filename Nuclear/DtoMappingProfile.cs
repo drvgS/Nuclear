@@ -32,6 +32,7 @@ namespace Nuclear
                 .ReverseMap();
 
             CreateMap<Post, PostDto>()
+                .ForMember(p => p.TopicId, opt => opt.MapFrom(p => p.Topic.Id))
                 .ReverseMap()
                 .ForMember(p => p.Topic, opt => opt.Ignore());
 
